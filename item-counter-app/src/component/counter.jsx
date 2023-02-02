@@ -3,6 +3,7 @@ import React, { Component } from "react";
 class Counter extends Component {
   state = {
     count: 1,
+    items: ["item1", "item2", "item3"],
   };
 
   // for applying styles to more than one elements
@@ -13,13 +14,13 @@ class Counter extends Component {
   render() {
     return (
       <React.Fragment>
-        <span
-          style={{ fontSize: 15, fontWeight: "bolder" }}
-          className={this.getBadgeClasses()}
-        >
-          {this.formatCount()}
-        </span>
+        <span className={this.getBadgeClasses()}>{this.formatCount()}</span>
         <button className="btn btn-secondary btn-sm">Increment</button>
+        <ul>
+          {this.state.items.map((item) => (
+            <li key={item}>{item}</li>
+          ))}
+        </ul>
       </React.Fragment>
     );
   }
