@@ -19,5 +19,9 @@ code {
 }
 
 .badge-primary {
-  background-color: blue !important;
+  background-color: rgb(38, 35, 248) !important;
+}
+
+.badge-warning {
+  background-color: rgb(255, 208, 0);
 }
