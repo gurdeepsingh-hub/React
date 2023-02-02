@@ -1,8 +1,12 @@
 import React, { Component } from "react";
 
 class Counter extends Component {
+  //   constructor() {
+  //     super();
+  //     this.incrementFunc = this.incrementFunc.bind(this);
+  //   }
   state = {
-    count: 1,
+    count: 0,
     items: ["item1", "item2", "item3"],
   };
 
@@ -15,7 +19,12 @@ class Counter extends Component {
     return (
       <React.Fragment>
         <span className={this.getBadgeClasses()}>{this.formatCount()}</span>
-        <button className="btn btn-secondary btn-sm">Increment</button>
+        <button
+          onClick={this.incrementFunc}
+          className="btn btn-secondary btn-sm"
+        >
+          Increment
+        </button>
         <ul>
           {this.state.items.map((item) => (
             <li key={item}>{item}</li>
@@ -36,9 +45,10 @@ class Counter extends Component {
     return count === 0 ? "zero" : count;
   }
 
-  incrementFunc() {
-    this.state.count += 1;
-  }
+  incrementFunc = () => {
+    this.state.count = 1;
+    console.log(this);
+  };
 }
 
 export default Counter;
