@@ -4,13 +4,13 @@ import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import "bootstrap/dist/css/bootstrap.css";
-import Counter from "./component/counter";
+import Counters from "./component/Counters";
 import ConditionalRender from "./component/conditionalRendering";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <Counter />
+    <Counters />
   </React.StrictMode>
 );
 
