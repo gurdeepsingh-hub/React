@@ -1,12 +1,11 @@
 import logo from "./logo.svg";
 import "./App.css";
-import MessageMovie from "./Components/message";
+import MovieTable from "./Components/movieTable";
 
 function App() {
   return (
     <main className="container">
-      <MessageMovie />
-      <h1>Hello World</h1>
+      <MovieTable />
     </main>
   );
 }
