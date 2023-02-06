@@ -73,7 +73,7 @@ class App extends Component {
             onAdd={this.handleAdd}
             onInc={this.incrementFunc}
             onDec={this.decrementFunc}
-            Counters={this.state.counters}
+            counters={this.state.counters}
           />
         </main>
       </React.Fragment>

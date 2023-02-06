@@ -9,7 +9,7 @@ class Counters extends Component {
           onClick={this.props.onReset}
           className="btn btn-secondary btn-sm m-2"
         >
-          {this.props.Counters.length <= 1
+          {this.props.counters.length <= 1
             ? "Reset Counter"
             : "Reset all Counters"}
         </button>
@@ -17,9 +17,9 @@ class Counters extends Component {
           onClick={this.props.onAdd}
           className="btn btn-success btn-sm m-2"
         >
-          {this.props.Counters.length == 0 ? "Add Counter" : "Add Counters"}
+          {this.props.counters.length == 0 ? "Add Counter" : "Add Counters"}
         </button>
-        {this.props.Counters.map((counter) => {
+        {this.props.counters.map((counter) => {
           return (
             <Counter
               key={counter.id}
