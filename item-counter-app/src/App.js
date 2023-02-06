@@ -13,20 +13,24 @@ class App extends Component {
   };
 
   handleDelete = (id) => {
+    const newCounters = this.state.counters.filter(
+      (counter) => counter.id != id
+    );
     this.setState({
-      counters: this.state.counters.filter((counter) => counter.id != id),
+      counters: newCounters,
     });
   };
 
   handleAdd = () => {
     const { counters } = this.state;
-    counters.push({
+    const newCounters = [...counters];
+    newCounters.push({
       id: counters.length ? counters[counters.length - 1].id + 1 : 1,
       value: 0,
     });
-    const newCounter = counters;
+
     this.setState({
-      counters: newCounter,
+      counters: newCounters,
     });
   };
 
