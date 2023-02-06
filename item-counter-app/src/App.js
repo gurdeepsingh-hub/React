@@ -51,11 +51,17 @@ class App extends Component {
     });
     this.setState({ counters });
   };
+  countTotal = () => {
+    const { counters } = this.state;
+    let total = 0;
+    counters.map((counter) => (total += counter.value));
+    return total;
+  };
 
   render() {
     return (
       <React.Fragment>
-        <Navbar />
+        <Navbar onTotal={this.countTotal} />
         <main className="container">
           <Counters
             onDelete={this.handleDelete}
