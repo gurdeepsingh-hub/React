@@ -57,8 +57,7 @@ class App extends Component {
   };
   countTotal = () => {
     const { counters } = this.state;
-    let total = 0;
-    counters.map((counter) => (total += counter.value));
+    let total = counters.reduce((a, b) => a + b.value, 0);
     return total;
   };
 
