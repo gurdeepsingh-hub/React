@@ -57,7 +57,7 @@ class Counters extends Component {
           onClick={this.handleReset}
           className="btn btn-secondary btn-sm m-2"
         >
-          {this.state.counters.length == 0
+          {this.state.counters.length <= 1
             ? "Reset Counter"
             : "Reset all Counters"}
         </button>
