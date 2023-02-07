@@ -1,13 +1,14 @@
 import React, { Component } from "react";
 import Like from "./Common/like.jsx";
 import Pagination from "./Common/pagination.jsx";
+import { paginateData } from "../utils/paginate.js";
 
 class Table extends Component {
-  handlePageChange = (page) => {
-    console.log(page);
-  };
   render() {
-    const { onDelete, movies, onLike, pageSize } = this.props;
+    const { onDelete, movies, onLike, pageSize, currentPage, onPageChange } =
+      this.props;
+
+    let pagedData = paginateData(movies, currentPage, pageSize);
     if (movies.length) {
       return (
         <React.Fragment>
@@ -23,7 +24,7 @@ class Table extends Component {
               </tr>
             </thead>
             <tbody>
-              {movies.map((movie, index) => {
+              {pagedData.map((movie, index) => {
                 return (
                   <tr key={movie._id}>
                     <td key={"title" + movie._id}>{movie.title}</td>
@@ -54,7 +55,8 @@ class Table extends Component {
           <Pagination
             count={movies.length}
             pageSize={pageSize}
-            onPageChange={this.handlePageChange}
+            onPageChange={onPageChange}
+            currentPage={currentPage}
           />
         </React.Fragment>
       );

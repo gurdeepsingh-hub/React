@@ -10,6 +10,7 @@ class MovieTable extends Component {
   state = {
     movies: getMovies(),
     pageSize: 4,
+    currentPage: 1,
   };
 
   handleLike = (id) => {
@@ -22,7 +23,19 @@ class MovieTable extends Component {
     });
     this.setState({ movies: newMovie });
   };
+
+  handlePageChange = (page) => {
+    this.setState({
+      currentPage: page,
+    });
+  };
+
+  handleDelete(id) {
+    this.setState(deleteMovie(id));
+  }
+
   render() {
+    const { movies, pageSize, currentPage } = this.state;
     return (
       <React.Fragment>
         <p>
@@ -34,16 +47,14 @@ class MovieTable extends Component {
           <Table
             onDelete={(id) => this.handleDelete(id)}
             onLike={(id) => this.handleLike(id)}
-            movies={this.state.movies}
-            pageSize={this.state.pageSize}
+            movies={movies}
+            pageSize={pageSize}
+            currentPage={currentPage}
+            onPageChange={this.handlePageChange}
           />
         }
       </React.Fragment>
     );
-  }
-
-  handleDelete(id) {
-    this.setState(deleteMovie(id));
   }
 }
 
