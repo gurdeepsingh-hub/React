@@ -9,6 +9,7 @@ class MovieTable extends Component {
   }
   state = {
     movies: getMovies(),
+    pageSize: 4,
   };
 
   handleLike = (id) => {
@@ -34,6 +35,7 @@ class MovieTable extends Component {
             onDelete={(id) => this.handleDelete(id)}
             onLike={(id) => this.handleLike(id)}
             movies={this.state.movies}
+            pageSize={this.state.pageSize}
           />
         }
       </React.Fragment>
