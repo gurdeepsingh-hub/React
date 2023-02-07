@@ -1,5 +1,6 @@
 import { FOCUSABLE_SELECTOR } from "@testing-library/user-event/dist/utils";
 import React, { Component } from "react";
+import PropTypes from "prop-types";
 
 const Pagination = ({ count, pageSize, onPageChange, currentPage }) => {
   let pageCount = Math.ceil(count / pageSize);
@@ -31,4 +32,10 @@ const Pagination = ({ count, pageSize, onPageChange, currentPage }) => {
   );
 };
 
+Pagination.propTypes = {
+  count: PropTypes.number.isRequired,
+  pageSize: PropTypes.number.isRequired,
+  onPageChange: PropTypes.func.isRequired,
+  currentPage: PropTypes.number.isRequired,
+};
 export default Pagination;

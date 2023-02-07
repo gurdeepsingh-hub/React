@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import Like from "./Common/like.jsx";
 import Pagination from "./Common/pagination.jsx";
 import { paginateData } from "../utils/paginate.js";
+import PropTypes from "prop-types";
 
 class Table extends Component {
   render() {
@@ -63,5 +64,14 @@ class Table extends Component {
     }
   }
 }
+
+Table.propType = {
+  onDelete: PropTypes.func.isRequired,
+  movies: PropTypes.array.isRequired,
+  onLike: PropTypes.func.isRequired,
+  pageSize: PropTypes.number.isRequired,
+  currentPage: PropTypes.number.isRequired,
+  onPageChange: PropTypes.func.isRequired,
+};
 
 export default Table;
