@@ -1,6 +1,6 @@
 import logo from "./logo.svg";
 import "./App.css";
-import MovieTable from "./Components/movieTable";
+import MovieTable from "./Components/moviePage";
 
 function App() {
   return (

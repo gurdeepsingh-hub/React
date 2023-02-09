@@ -3,6 +3,7 @@ import { getMovies, deleteMovie } from "../Services/fakeMovieService.js";
 import { getGenres } from "../Services/fakeGenreService.js";
 import FilterGenre from "../utils/filter.js";
 import ListGroup from "./listGroup.jsx";
+import { SortData } from "../utils/sortData.js";
 import Table from "./table.jsx";
 
 class MovieTable extends Component {
@@ -15,6 +16,7 @@ class MovieTable extends Component {
     pageSize: 4,
     currentPage: 1,
     currentGenre: "All Genres",
+    selectedColumn: { path: "", order: 0 },
   };
 
   componentDidMount() {
@@ -22,7 +24,7 @@ class MovieTable extends Component {
   }
 
   handleLike = (id) => {
-    const movies = this.state.movies;
+    const { movies } = this.state;
     const newMovie = movies.map((movie) => {
       if (movie._id === id) {
         movie.liked = !movie.liked;
@@ -43,7 +45,7 @@ class MovieTable extends Component {
   }
 
   handleGenreSelect(genre) {
-    this.setState({ currentGenre: genre });
+    this.setState({ currentGenre: genre, currentPage: 1 });
   }
 
   filterData() {
@@ -51,8 +53,34 @@ class MovieTable extends Component {
     const filteredData = FilterGenre(movies, currentGenre);
     return filteredData;
   }
+
+  sortData(filterData) {
+    const { selectedColumn } = this.state;
+    const sorted = SortData(
+      filterData,
+      selectedColumn.path,
+      selectedColumn.order
+    );
+
+    return sorted;
+  }
+
+  handleSort(path) {
+    const { selectedColumn } = this.state;
+    if (selectedColumn.path == path) {
+      selectedColumn.order *= -1;
+    } else {
+      selectedColumn.path = path;
+      selectedColumn.order = 1;
+    }
+
+    this.setState({ selectedColumn });
+  }
   render() {
-    const { movies, pageSize, currentPage, genre, currentGenre } = this.state;
+    const { pageSize, currentPage, genre, currentGenre, selectedColumn } =
+      this.state;
+    const filterData = this.filterData();
+    const sortData = this.sortData(filterData);
     return (
       <div className="row">
         <div className="col-2">
@@ -64,18 +92,19 @@ class MovieTable extends Component {
         </div>
         <div className="col">
           <p>
-            {this.filterData().length === 0
+            {filterData.length === 0
               ? "There is no movie in database"
-              : `Showing ${this.filterData().length} movies in database`}
+              : `Showing ${filterData.length} movies in database`}
           </p>
           {
             <Table
-              onDelete={(id) => this.handleDelete(id)}
-              onLike={(id) => this.handleLike(id)}
-              movies={this.filterData()}
+              movies={sortData}
               pageSize={pageSize}
               currentPage={currentPage}
+              onDelete={(id) => this.handleDelete(id)}
+              onLike={(id) => this.handleLike(id)}
               onPageChange={this.handlePageChange}
+              onSort={(path) => this.handleSort(path)}
             />
           }
         </div>
