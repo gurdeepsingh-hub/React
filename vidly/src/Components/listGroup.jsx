@@ -3,7 +3,7 @@ import React, { Component } from "react";
 const ListGroup = (props) => {
   const { genre, onGenreSelect, selectedGenre } = props;
 
-  let genres = [{ _id: 1, name: "All Genres" }, ...genre];
+  const genres = [...[{ _id: 1, name: "All Genres" }], ...Object.values(genre)];
 
   return (
     <ul className="list-group">

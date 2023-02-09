@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import Like from "./Common/like.jsx";
 import Pagination from "./Common/pagination.jsx";
 import { paginateData } from "../utils/paginate.js";
+
 import PropTypes from "prop-types";
 
 class Table extends Component {
