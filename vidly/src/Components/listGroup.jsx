@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import PropTypes from "prop-types";
+import { type } from "@testing-library/user-event/dist/type";
 
 const ListGroup = (props) => {
   const { genre, onGenreSelect, selectedGenre } = props;
@@ -29,6 +31,12 @@ const ListGroup = (props) => {
       })}
     </ul>
   );
+};
+
+ListGroup.propTypes = {
+  genre: PropTypes.array.isRequired,
+  onGenreSelect: PropTypes.func.isRequired,
+  selectedGenre: PropTypes.string.isRequired,
 };
 
 export default ListGroup;
