@@ -5,7 +5,7 @@ import { type } from "@testing-library/user-event/dist/type";
 const ListGroup = (props) => {
   const { genre, onGenreSelect, selectedGenre } = props;
 
-  const genres = [...[{ _id: 1, name: "All Genres" }], ...Object.values(genre)];
+  const genres = [{ _id: 1, name: "All Genres" }, ...genre];
 
   return (
     <ul className="list-group">

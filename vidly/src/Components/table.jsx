@@ -7,8 +7,15 @@ import PropTypes from "prop-types";
 
 class Table extends Component {
   render() {
-    const { onDelete, movies, onLike, pageSize, currentPage, onPageChange } =
-      this.props;
+    const {
+      onDelete,
+      movies,
+      onLike,
+      pageSize,
+      currentPage,
+      onPageChange,
+      onSort,
+    } = this.props;
 
     let pagedData = paginateData(movies, currentPage, pageSize);
     if (movies.length) {
@@ -17,10 +24,10 @@ class Table extends Component {
           <table className="table">
             <thead>
               <tr>
-                <th>Title</th>
-                <th>Genre</th>
-                <th>Stock</th>
-                <th>Rate</th>
+                <th onClick={() => onSort("title")}>Title</th>
+                <th onClick={() => onSort("genre.name")}>Genre</th>
+                <th onClick={() => onSort("numberInStock")}>Stock</th>
+                <th onClick={() => onSort("dailyRentalRate")}>Rate</th>
                 <th></th>
                 <th></th>
               </tr>
