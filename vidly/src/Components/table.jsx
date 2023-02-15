@@ -2,64 +2,71 @@ import React, { Component } from "react";
 import Like from "./Common/like.jsx";
 import Pagination from "./Common/pagination.jsx";
 import { paginateData } from "../utils/paginate.js";
+import { SortData } from "../utils/sortData.js";
+import TableHeader from "./Common/tableHeader.jsx";
+import TableBody from "./Common/tableBody.jsx";
 
 import PropTypes from "prop-types";
 
 class Table extends Component {
+  columns = [
+    { id: 1, path: "title", label: "Title" },
+    { id: 2, path: "genre.name", label: "Genre" },
+    { id: 3, path: "numberInStock", label: "Stock" },
+    { id: 4, path: "dailyRentalRate", label: "Rate" },
+    {
+      id: 5,
+      content: (movie) => (
+        <Like
+          liked={movie.liked}
+          onClick={() => this.props.onLike(movie._id)}
+        />
+      ),
+    },
+    {
+      id: 6,
+      content: (movie) => (
+        <button
+          className="btn btn-danger"
+          onClick={() => {
+            this.props.onDelete(movie._id);
+          }}
+        >
+          Delete
+        </button>
+      ),
+    },
+  ];
+
   render() {
     const {
       onDelete,
       movies,
       onLike,
       pageSize,
+      onSort,
       currentPage,
       onPageChange,
-      onSort,
+      selectedColumn,
     } = this.props;
 
-    let pagedData = paginateData(movies, currentPage, pageSize);
+    const sortData = SortData(
+      movies,
+      selectedColumn.path,
+      selectedColumn.order
+    );
+    let pagedData = paginateData(sortData, currentPage, pageSize);
+
     if (movies.length) {
       return (
         <React.Fragment>
           <table className="table">
-            <thead>
-              <tr>
-                <th onClick={() => onSort("title")}>Title</th>
-                <th onClick={() => onSort("genre.name")}>Genre</th>
-                <th onClick={() => onSort("numberInStock")}>Stock</th>
-                <th onClick={() => onSort("dailyRentalRate")}>Rate</th>
-                <th></th>
-                <th></th>
-              </tr>
-            </thead>
-            <tbody>
-              {pagedData.map((movie, index) => {
-                return (
-                  <tr key={movie._id}>
-                    <td key={"title" + movie._id}>{movie.title}</td>
-                    <td key={"genre" + movie._id}>{movie.genre.name}</td>
-                    <td key={"stock" + movie._id}>{movie.numberInStock}</td>
-                    <td key={"rate" + movie._id}>{movie.dailyRentalRate}</td>
-                    <td>
-                      <Like
-                        liked={movie.liked}
-                        onClick={() => onLike(movie._id)}
-                      />
-                    </td>
-                    <td>
-                      <button
-                        className="btn btn-danger"
-                        onClick={() => {
-                          onDelete(movie._id);
-                        }}
-                      >
-                        Delete
-                      </button>
-                    </td>
-                  </tr>
-                );
-              })}
-            </tbody>
+            <TableHeader
+              columns={this.columns}
+              selectedColumn={selectedColumn}
+              onSort={onSort}
+            />
+            <TableBody data={pagedData} columns={this.columns} />
           </table>
           <Pagination
             count={movies.length}
@@ -80,6 +87,7 @@ Table.propType = {
   pageSize: PropTypes.number.isRequired,
   currentPage: PropTypes.number.isRequired,
   onPageChange: PropTypes.func.isRequired,
+  onSort: PropTypes.func.isRequired,
 };
 
 export default Table;

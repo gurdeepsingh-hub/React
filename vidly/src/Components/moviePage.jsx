@@ -3,7 +3,7 @@ import { getMovies, deleteMovie } from "../Services/fakeMovieService.js";
 import { getGenres } from "../Services/fakeGenreService.js";
 import FilterGenre from "../utils/filter.js";
 import ListGroup from "./listGroup.jsx";
-import { SortData } from "../utils/sortData.js";
+
 import Table from "./table.jsx";
 
 class MovieTable extends Component {
@@ -54,33 +54,14 @@ class MovieTable extends Component {
     return filteredData;
   }
 
-  sortData(filterData) {
-    const { selectedColumn } = this.state;
-    const sorted = SortData(
-      filterData,
-      selectedColumn.path,
-      selectedColumn.order
-    );
-
-    return sorted;
-  }
-
-  handleSort(path) {
-    const { selectedColumn } = this.state;
-    if (selectedColumn.path == path) {
-      selectedColumn.order *= -1;
-    } else {
-      selectedColumn.path = path;
-      selectedColumn.order = 1;
-    }
-
+  handleSort(selectedColumn) {
     this.setState({ selectedColumn });
   }
   render() {
     const { pageSize, currentPage, genre, currentGenre, selectedColumn } =
       this.state;
     const filterData = this.filterData();
-    const sortData = this.sortData(filterData);
+
     return (
       <div className="row">
         <div className="col-2">
@@ -98,9 +79,10 @@ class MovieTable extends Component {
           </p>
           {
             <Table
-              movies={sortData}
+              movies={filterData}
               pageSize={pageSize}
               currentPage={currentPage}
+              selectedColumn={selectedColumn}
               onDelete={(id) => this.handleDelete(id)}
               onLike={(id) => this.handleLike(id)}
               onPageChange={this.handlePageChange}
