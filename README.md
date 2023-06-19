@@ -1,5 +1,9 @@
 # Getting Started with Create React App
 
+To start any react project just clone this repo
+`git clone -b <branch-name> <remoteRepoURL>`
+and then `npm i`
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
